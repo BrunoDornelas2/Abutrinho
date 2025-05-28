@@ -10,7 +10,6 @@ function expressao2() {
   const simbolos = ["V", "F"];
   const simboloAltura = 60;
   const visiveis = 3;
-  let p = 1;
   let exist = false;
   
   //define o número de valores lógicos
@@ -64,33 +63,32 @@ function expressao2() {
       rolo.appendChild(simbolo);
     }
     //local de escrita da expressão
-    if (p == 1) {
+    if (i == 0) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
       sinal.textContent = "(¬";
       roleta.appendChild(sinal);
-    } else if (p == 2) {
+    } else if (i == 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
       sinal.textContent = "∧";
       roleta.appendChild(sinal);
-    } else if (p == 3) {
+    } else if (i == 2) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
       sinal.textContent = ")∨(";
       roleta.appendChild(sinal);
-    } else if (p == 4) {
+    } else if (i == 3) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
       sinal.textContent = "→";
       roleta.appendChild(sinal);
-    } else if (p == 5) {
+    } else if (i == 4) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
       sinal.textContent = ")↔";
       roleta.appendChild(sinal);
     }
-    p++;
 
     coluna.appendChild(rolo);
     roleta.appendChild(colunaWrapper);
@@ -169,7 +167,7 @@ function expressao2() {
         // Usa o valor fixado da rodada anterior
         valoresCentrais[indice] = valoresFixos[indice];
         colunasProcessadas++;
-        if (colunasProcessadas === 5) processarResultado();
+        if (colunasProcessadas === colunas.length) processarResultado();
         return;
       }
 
@@ -193,7 +191,7 @@ function expressao2() {
         valoresFixos[indice] = valor; // Atualiza valor fixo apenas se não travado
 
         colunasProcessadas++;
-        if (colunasProcessadas === 5) processarResultado();
+        if (colunasProcessadas === colunas.length) processarResultado();
       }, 3000 + indice * 1000);
     });
   });

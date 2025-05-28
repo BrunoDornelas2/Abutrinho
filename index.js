@@ -1,5 +1,7 @@
 import { expressao1 } from './exp1.js';
 import { expressao2 } from './exp2.js';
+import { expressao3 } from './exp3.js';
+import { expressao4 } from './exp4.js';
 
 function moedas () {
     const moedasContainer = document.getElementById('moedas-container');
@@ -25,7 +27,7 @@ function moedas () {
 
 export { moedas };
 
-const expressoes = [expressao1, expressao2];
+const expressoes = [expressao1, expressao2, expressao3, expressao4];
 let usadas = [];
 
 function escolherExpressao() {

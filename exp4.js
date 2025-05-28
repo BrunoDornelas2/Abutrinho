@@ -1,6 +1,6 @@
 import { moedas, escolherExpressao } from './index.js';
 
-function expressao1() {
+function expressao4() {
   const container = document.querySelector(".game");
   container.innerHTML = "";
 
@@ -66,17 +66,17 @@ function expressao1() {
     if (i == 0) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "(";
+      sinal.textContent = "¬(";
       roleta.appendChild(sinal);
     } else if (i == 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∨";
+      sinal.textContent = "∨(¬";
       roleta.appendChild(sinal);
     } else if (i == 2) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = ")∧";
+      sinal.textContent = "↔";
       roleta.appendChild(sinal);
     }
 
@@ -84,16 +84,23 @@ function expressao1() {
     roleta.appendChild(colunaWrapper);
 
     colunas.push({ rolo, indice: i });
+
+    if (i == 2) {
+      const sinal = document.createElement("div");
+      sinal.className = "sinals";
+      sinal.textContent = "))";
+      roleta.appendChild(sinal);
+    }
   }
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "10vw";
-  box.style.width = "320px"
+  box.style.marginRight = "3vw";
+  box.style.width = "360px"
   box.id = "b1";
   roleta.appendChild(box);
   const boxx = document.createElement("div");
   boxx.className = "boxB";
-  boxx.style.width = "480px"
+  boxx.style.width = "620px"
   boxx.id = "b2";
   roleta.appendChild(boxx);
 
@@ -166,8 +173,8 @@ function expressao1() {
 
   function processarResultado() {
     const [v1, v2, v3] = valoresCentrais.map(v => v === "V");
-    const resultado1 = v1 || v2;
-    const resultadoFinal = resultado1 && v3;
+    const resultado1 = !v2 === v3;
+    const resultadoFinal = !(resultado1 || v1);
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
     const imagemSorrindoSrc = "./imagens/maldito.png";
@@ -235,4 +242,4 @@ function expressao1() {
   }
 }
 
-export { expressao1 };
+export { expressao4 };

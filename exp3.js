@@ -1,6 +1,6 @@
 import { moedas, escolherExpressao } from './index.js';
 
-function expressao1() {
+function expressao3() {
   const container = document.querySelector(".game");
   container.innerHTML = "";
 
@@ -14,12 +14,12 @@ function expressao1() {
   
   //define o número de valores lógicos
   const colunas = [];
-  const valoresCentrais = [null, null, null];
-  const travadas = [false, false, false];
-  const transformacoesFixas = [null, null, null];
-  const valoresFixos = [null, null, null];
-
-  for (let i = 0; i < 3; i++) {
+  const valoresCentrais = [null, null, null, null];
+  const travadas = [false, false, false, false];
+  const transformacoesFixas = [null, null, null, null];
+  const valoresFixos = [null, null, null, null];
+  
+  for (let i = 0; i < 4; i++) {
     const colunaWrapper = document.createElement("div");
     colunaWrapper.className = "coluna-wrapper";
 
@@ -71,31 +71,49 @@ function expressao1() {
     } else if (i == 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∨";
+      sinal.textContent = "→";
       roleta.appendChild(sinal);
     } else if (i == 2) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = ")∧";
+      sinal.textContent = ")∧(";
       roleta.appendChild(sinal);
-    }
+    } else if (i == 3) {
+      const sinal = document.createElement("div");
+      sinal.className = "sinals";
+      sinal.textContent = "∧¬";
+      roleta.appendChild(sinal);
+    } 
 
     coluna.appendChild(rolo);
     roleta.appendChild(colunaWrapper);
 
     colunas.push({ rolo, indice: i });
+
+    if (i == 3) {
+      const sinal = document.createElement("div");
+      sinal.className = "sinals";
+      sinal.textContent = ")";
+      roleta.appendChild(sinal);
+    }
   }
+
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "10vw";
-  box.style.width = "320px"
+  box.style.marginRight = "30vw";
+  box.style.width = "340px"
   box.id = "b1";
   roleta.appendChild(box);
   const boxx = document.createElement("div");
   boxx.className = "boxB";
-  boxx.style.width = "480px"
+  boxx.style.width = "740px"
   boxx.id = "b2";
   roleta.appendChild(boxx);
+  const boxxx = document.createElement("div");
+  boxxx.className = "boxA";
+  boxxx.style.width = "370px"
+  boxxx.id = "b3";
+  roleta.appendChild(boxxx);
 
   container.appendChild(roleta);
 
@@ -116,6 +134,7 @@ function expressao1() {
 
     const box1 = document.getElementById("b1");
     const box2 = document.getElementById("b2");
+    const box3 = document.getElementById("b3");
 
     if (box1) {
       box1.style.backgroundColor = "";
@@ -124,6 +143,10 @@ function expressao1() {
     if (box2) {
       box2.style.backgroundColor = "";
       box2.style.boxShadow = "";
+    }
+    if (box3) {
+      box3.style.backgroundColor = "";
+      box3.style.boxShadow = "";
     }
 
     colunas.forEach(({ rolo, indice }) => {
@@ -165,9 +188,10 @@ function expressao1() {
   });
 
   function processarResultado() {
-    const [v1, v2, v3] = valoresCentrais.map(v => v === "V");
-    const resultado1 = v1 || v2;
-    const resultadoFinal = resultado1 && v3;
+    const [v1, v2, v3, v4] = valoresCentrais.map(v => v === "V");
+    const resultado1 = !v1 || v2;
+    const resultado2 = v3 && !v4;
+    const resultadoFinal = resultado1 && resultado2;
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
     const imagemSorrindoSrc = "./imagens/maldito.png";
@@ -175,16 +199,20 @@ function expressao1() {
 
     const box1 = document.getElementById("b1");
     const box2 = document.getElementById("b2");
+    const box3 = document.getElementById("b3");
     const colunasElement = document.querySelectorAll(".coluna-wrapper .coluna");
 
     if (box1) {
       box1.style.backgroundColor = resultado1 ? "limegreen" : "red";
       box1.style.boxShadow = resultado1 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
-
     if (box2) {
       box2.style.backgroundColor = resultadoFinal ? "limegreen" : "red";
       box2.style.boxShadow = resultadoFinal ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+    }
+    if (box3) {
+      box3.style.backgroundColor = resultado2 ? "limegreen" : "red";
+      box3.style.boxShadow = resultado2 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
 
     if (!resultadoFinal) {
@@ -235,4 +263,4 @@ function expressao1() {
   }
 }
 
-export { expressao1 };
+export { expressao3 };
