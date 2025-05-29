@@ -87,7 +87,7 @@ function expressao1() {
   }
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "10vw";
+  box.style.marginRight = "130px";
   box.style.width = "320px"
   box.id = "b1";
   roleta.appendChild(box);

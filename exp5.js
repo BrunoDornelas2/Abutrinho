@@ -1,6 +1,6 @@
 import { moedas, escolherExpressao } from './index.js';
 
-function expressao4() {
+function expressao5() {
   const container = document.querySelector(".game");
   container.innerHTML = "";
 
@@ -14,12 +14,12 @@ function expressao4() {
   
   //define o número de valores lógicos
   const colunas = [];
-  const valoresCentrais = [null, null, null];
-  const travadas = [false, false, false];
-  const transformacoesFixas = [null, null, null];
-  const valoresFixos = [null, null, null];
+  const valoresCentrais = [null, null, null, null, null];
+  const travadas = [false, false, false, false, false];
+  const transformacoesFixas = [null, null, null, null, null];
+  const valoresFixos = [null, null, null, null, null];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     const colunaWrapper = document.createElement("div");
     colunaWrapper.className = "coluna-wrapper";
 
@@ -71,12 +71,22 @@ function expressao4() {
     } else if (i == 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∨(¬";
+      sinal.textContent = "∧";
       roleta.appendChild(sinal);
     } else if (i == 2) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "↔";
+      sinal.textContent = "∨";
+      roleta.appendChild(sinal);
+    } else if (i == 3) {
+      const sinal = document.createElement("div");
+      sinal.className = "sinals";
+      sinal.textContent = "→";
+      roleta.appendChild(sinal);
+    } else if (i == 4) {
+      const sinal = document.createElement("div");
+      sinal.className = "sinals";
+      sinal.textContent = "∨";
       roleta.appendChild(sinal);
     }
 
@@ -85,24 +95,36 @@ function expressao4() {
 
     colunas.push({ rolo, indice: i });
 
-    if (i == 2) {
+    if (i == 4) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "))";
+      sinal.textContent = ")";
       roleta.appendChild(sinal);
     }
   }
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "41px";
-  box.style.width = "360px"
+  box.style.marginRight = "520px";
+  box.style.width = "250px"
   box.id = "b1";
   roleta.appendChild(box);
   const boxx = document.createElement("div");
-  boxx.className = "boxB";
-  boxx.style.width = "620px"
+  boxx.className = "boxC";
+  boxx.style.width = "850px"
   boxx.id = "b2";
   roleta.appendChild(boxx);
+  const boxxx = document.createElement("div");
+  boxxx.className = "boxB";
+  boxxx.style.marginRight = "370px";
+  boxxx.style.width = "420px"
+  boxxx.id = "b3";
+  roleta.appendChild(boxxx);
+  const boxxxx = document.createElement("div");
+  boxxxx.className = "boxA";
+  boxxxx.style.marginRight = "41px";
+  boxxxx.style.width = "260px"
+  boxxxx.id = "b4";
+  roleta.appendChild(boxxxx);
 
   container.appendChild(roleta);
 
@@ -123,6 +145,8 @@ function expressao4() {
 
     const box1 = document.getElementById("b1");
     const box2 = document.getElementById("b2");
+    const box3 = document.getElementById("b3");
+    const box4 = document.getElementById("b4");
 
     if (box1) {
       box1.style.backgroundColor = "";
@@ -131,6 +155,14 @@ function expressao4() {
     if (box2) {
       box2.style.backgroundColor = "";
       box2.style.boxShadow = "";
+    }
+    if (box3) {
+      box3.style.backgroundColor = "";
+      box3.style.boxShadow = "";
+    }
+    if (box4) {
+      box4.style.backgroundColor = "";
+      box4.style.boxShadow = "";
     }
 
     colunas.forEach(({ rolo, indice }) => {
@@ -172,9 +204,11 @@ function expressao4() {
   });
 
   function processarResultado() {
-    const [v1, v2, v3] = valoresCentrais.map(v => v === "V");
-    const resultado1 = !v2 === v3;
-    const resultadoFinal = !(resultado1 || v1);
+    const [v1, v2, v3, v4, v5] = valoresCentrais.map(v => v === "V");
+    const resultado1 = v1 && v2;
+    const resultado2 = resultado1 || v3;
+    const resultado3 = v4 || v5;
+    const resultadoFinal = !(!resultado2 || resultado3);
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
     const imagemSorrindoSrc = "./imagens/maldito.png";
@@ -182,16 +216,25 @@ function expressao4() {
 
     const box1 = document.getElementById("b1");
     const box2 = document.getElementById("b2");
+    const box3 = document.getElementById("b3");
+    const box4 = document.getElementById("b4");
     const colunasElement = document.querySelectorAll(".coluna-wrapper .coluna");
 
     if (box1) {
       box1.style.backgroundColor = resultado1 ? "limegreen" : "red";
       box1.style.boxShadow = resultado1 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
-
     if (box2) {
       box2.style.backgroundColor = resultadoFinal ? "limegreen" : "red";
       box2.style.boxShadow = resultadoFinal ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+    }
+    if (box3) {
+      box3.style.backgroundColor = resultado2 ? "limegreen" : "red";
+      box3.style.boxShadow = resultado2 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+    }
+    if (box4) {
+      box4.style.backgroundColor = resultado3 ? "limegreen" : "red";
+      box4.style.boxShadow = resultado3 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
 
     if (!resultadoFinal) {
@@ -242,4 +285,4 @@ function expressao4() {
   }
 }
 
-export { expressao4 };
+export { expressao5 };

@@ -100,7 +100,7 @@ function expressao3() {
 
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "30vw";
+  box.style.marginRight = "400px";
   box.style.width = "340px"
   box.id = "b1";
   roleta.appendChild(box);

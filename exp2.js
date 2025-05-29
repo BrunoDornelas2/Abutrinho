@@ -97,7 +97,7 @@ function expressao2() {
   }
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "38vw";
+  box.style.marginRight = "500px";
   box.style.width = "360px"
   box.id = "b1";
   roleta.appendChild(box);
@@ -108,13 +108,13 @@ function expressao2() {
   roleta.appendChild(boxx);
   const boxxx = document.createElement("div");
   boxxx.className = "boxA";
-  boxxx.style.marginRight = "11vw";
+  boxxx.style.marginRight = "150px";
   boxxx.style.width = "330px"
   boxxx.id = "b3";
   roleta.appendChild(boxxx);
   const boxxxx = document.createElement("div");
   boxxxx.className = "boxB";
-  boxxxx.style.marginRight = "11vw";
+  boxxxx.style.marginRight = "150px";
   boxxxx.style.width = "720px"
   boxxxx.id = "b4";
   roleta.appendChild(boxxxx);
