@@ -130,9 +130,14 @@ function expressao6() {
   botao.className = "btn-jogar";
   container.appendChild(botao);
 
+  const somRoleta = new Audio("./audios/roleta.wav");
+
   botao.addEventListener("click", () => {
     botao.disabled = true;
     let colunasProcessadas = 0;
+
+    somRoleta.currentTime = 0;
+    somRoleta.play();
 
     [box1, box2, box3].forEach(box => {
       if (box) {
@@ -148,7 +153,10 @@ function expressao6() {
         }
         valoresCentrais[indice] = valoresFixos[indice];
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        }
         return;
       }
 
@@ -172,7 +180,10 @@ function expressao6() {
         valoresFixos[indice] = valor;
 
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        }
       }, 3000 + indice * 1000);
     });
   });

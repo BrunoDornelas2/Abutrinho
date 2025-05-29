@@ -128,9 +128,14 @@ function expressao3() {
   botao.className = "btn-jogar";
   container.appendChild(botao);
 
+  const somRoleta = new Audio("./audios/roleta.wav");
+
   botao.addEventListener("click", () => {
     botao.disabled = true;
     let colunasProcessadas = 0;
+
+    somRoleta.currentTime = 0;
+    somRoleta.play();
 
     const box1 = document.getElementById("b1");
     const box2 = document.getElementById("b2");
@@ -158,7 +163,10 @@ function expressao3() {
         // Usa o valor fixado da rodada anterior
         valoresCentrais[indice] = valoresFixos[indice];
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        } 
         return;
       }
 
@@ -182,7 +190,10 @@ function expressao3() {
         valoresFixos[indice] = valor; // Atualiza valor fixo apenas se não travado
 
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        } 
       }, 3000 + indice * 1000);
     });
   });

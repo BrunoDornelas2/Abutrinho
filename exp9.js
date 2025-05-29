@@ -1,6 +1,6 @@
 import { moedas, escolherExpressao } from './index.js';
 
-function expressao5() {
+function expressao9() {
   const container = document.querySelector(".game");
   container.innerHTML = "";
 
@@ -66,27 +66,27 @@ function expressao5() {
     if (i == 0) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "¬(";
+      sinal.textContent = "(";
       roleta.appendChild(sinal);
     } else if (i == 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∧";
+      sinal.textContent = "→(";
       roleta.appendChild(sinal);
     } else if (i == 2) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∨";
+      sinal.textContent = "↑";
       roleta.appendChild(sinal);
     } else if (i == 3) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "→";
+      sinal.textContent = "))↓(";
       roleta.appendChild(sinal);
     } else if (i == 4) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∨";
+      sinal.textContent = "→";
       roleta.appendChild(sinal);
     }
 
@@ -104,25 +104,24 @@ function expressao5() {
   }
   const box = document.createElement("div");
   box.className = "boxA";
-  box.style.marginRight = "520px";
-  box.style.width = "250px"
+  box.style.marginRight = "400px";
+  box.style.width = "310px"
   box.id = "b1";
   roleta.appendChild(box);
   const boxx = document.createElement("div");
   boxx.className = "boxC";
-  boxx.style.width = "850px"
+  boxx.style.width = "900px"
   boxx.id = "b2";
   roleta.appendChild(boxx);
   const boxxx = document.createElement("div");
   boxxx.className = "boxB";
   boxxx.style.marginRight = "370px";
-  boxxx.style.width = "420px"
+  boxxx.style.width = "528px"
   boxxx.id = "b3";
   roleta.appendChild(boxxx);
   const boxxxx = document.createElement("div");
   boxxxx.className = "boxA";
-  boxxxx.style.marginRight = "41px";
-  boxxxx.style.width = "260px"
+  boxxxx.style.width = "340px"
   boxxxx.id = "b4";
   roleta.appendChild(boxxxx);
 
@@ -216,10 +215,10 @@ function expressao5() {
 
   function processarResultado() {
     const [v1, v2, v3, v4, v5] = valoresCentrais.map(v => v === "V");
-    const resultado1 = v1 && v2;
-    const resultado2 = resultado1 || v3;
-    const resultado3 = v4 || v5;
-    const resultadoFinal = !(!resultado2 || resultado3);
+    const resultado1 = !(v2 && v3);
+    const resultado2 = !v1 || resultado1;
+    const resultado3 = !v4 || v5;
+    const resultadoFinal = !(resultado2 || resultado3);
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
     const imagemSorrindoSrc = "./imagens/maldito.png";
@@ -296,4 +295,4 @@ function expressao5() {
   }
 }
 
-export { expressao5 };
+export { expressao9 };

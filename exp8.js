@@ -70,7 +70,7 @@ function expressao8() {
     } else if (i === 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "⊻";
+      sinal.textContent = "⊕";
       roleta.appendChild(sinal);
     } else if (i === 2) {
       const sinal = document.createElement("div");
@@ -80,7 +80,7 @@ function expressao8() {
     } else if (i === 3) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∧";
+      sinal.textContent = "∨";
       roleta.appendChild(sinal);
     }
 
@@ -97,15 +97,22 @@ function expressao8() {
 
   const box1 = document.createElement("div");
   box1.className = "boxA";
-  box1.style.width = "320px";
+  box1.style.marginRight = "400px";
+  box1.style.width = "330px";
   box1.id = "b1";
   roleta.appendChild(box1);
 
   const box2 = document.createElement("div");
-  box2.className = "boxB";
-  box2.style.width = "480px";
+  box2.className = "boxA";
+  box2.style.width = "370px";
   box2.id = "b2";
   roleta.appendChild(box2);
+
+  const box3 = document.createElement("div");
+  box3.className = "boxB";
+  box3.style.width = "730px";
+  box3.id = "b3";
+  roleta.appendChild(box3);
 
   container.appendChild(roleta);
 
@@ -120,11 +127,16 @@ function expressao8() {
   botao.className = "btn-jogar";
   container.appendChild(botao);
 
+  const somRoleta = new Audio("./audios/roleta.wav");
+
   botao.addEventListener("click", () => {
     botao.disabled = true;
     let colunasProcessadas = 0;
 
-    [box1, box2].forEach(box => {
+    somRoleta.currentTime = 0;
+    somRoleta.play();
+
+    [box1, box2, box3].forEach(box => {
       if (box) {
         box.style.backgroundColor = "";
         box.style.boxShadow = "";
@@ -138,7 +150,10 @@ function expressao8() {
         }
         valoresCentrais[indice] = valoresFixos[indice];
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        }
         return;
       }
 
@@ -162,7 +177,10 @@ function expressao8() {
         valoresFixos[indice] = valor;
 
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        }
       }, 3000 + indice * 1000);
     });
   });
@@ -170,9 +188,8 @@ function expressao8() {
   function processarResultado() {
     const [A, B, C, D] = valoresCentrais.map(v => v === "V");
     const xor = (A && !B) || (!A && B);
-    const e = C && D;
-    const negacao = !e;
-    const resultadoFinal = xor && negacao;
+    const OU = !(C || D);
+    const resultadoFinal = xor && OU;
     
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
@@ -185,8 +202,12 @@ function expressao8() {
     }
 
     if (box2) {
-      box2.style.backgroundColor = negacao ? "limegreen" : "red";
-      box2.style.boxShadow = negacao ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+      box2.style.backgroundColor = OU ? "limegreen" : "red";
+      box2.style.boxShadow = OU ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+    }
+    if (box3) {
+      box3.style.backgroundColor = resultadoFinal ? "limegreen" : "red";
+      box3.style.boxShadow = resultadoFinal ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
 
 if (!resultadoFinal) {

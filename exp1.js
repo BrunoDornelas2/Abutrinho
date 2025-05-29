@@ -71,7 +71,7 @@ function expressao1() {
     } else if (i == 1) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "∨";
+      sinal.textContent = "⊕";
       roleta.appendChild(sinal);
     } else if (i == 2) {
       const sinal = document.createElement("div");
@@ -88,7 +88,7 @@ function expressao1() {
   const box = document.createElement("div");
   box.className = "boxA";
   box.style.marginRight = "130px";
-  box.style.width = "320px"
+  box.style.width = "340px"
   box.id = "b1";
   roleta.appendChild(box);
   const boxx = document.createElement("div");
@@ -110,9 +110,14 @@ function expressao1() {
   botao.className = "btn-jogar";
   container.appendChild(botao);
 
+  const somRoleta = new Audio("./audios/roleta.wav");
+
   botao.addEventListener("click", () => {
     botao.disabled = true;
     let colunasProcessadas = 0;
+
+    somRoleta.currentTime = 0;
+    somRoleta.play();
 
     const box1 = document.getElementById("b1");
     const box2 = document.getElementById("b2");
@@ -135,7 +140,10 @@ function expressao1() {
         // Usa o valor fixado da rodada anterior
         valoresCentrais[indice] = valoresFixos[indice];
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        }
         return;
       }
 
@@ -159,14 +167,17 @@ function expressao1() {
         valoresFixos[indice] = valor; // Atualiza valor fixo apenas se não travado
 
         colunasProcessadas++;
-        if (colunasProcessadas === colunas.length) processarResultado();
+        if (colunasProcessadas === colunas.length) {
+          somRoleta.pause();
+          processarResultado();
+        }
       }, 3000 + indice * 1000);
     });
   });
 
   function processarResultado() {
     const [v1, v2, v3] = valoresCentrais.map(v => v === "V");
-    const resultado1 = v1 || v2;
+    const resultado1 = (v1 && !v2) || (!v1 && v2);
     const resultadoFinal = resultado1 && v3;
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
