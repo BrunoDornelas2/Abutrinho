@@ -65,7 +65,7 @@ function expressao6() {
     if (i === 0) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "¬((";
+      sinal.textContent = "¬(((";
       roleta.appendChild(sinal);
     } else if (i === 1) {
       const sinal = document.createElement("div");
@@ -75,12 +75,12 @@ function expressao6() {
     } else if (i === 2) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = ")∧(¬";
+      sinal.textContent = ")∧¬";
       roleta.appendChild(sinal);
     } else if (i === 3) {
       const sinal = document.createElement("div");
       sinal.className = "sinals";
-      sinal.textContent = "))→";
+      sinal.textContent = ")→";
       roleta.appendChild(sinal);
     }
 
@@ -88,29 +88,32 @@ function expressao6() {
     roleta.appendChild(colunaWrapper);
 
     colunas.push({ rolo, indice: i });
-  }
 
-  const sinalFinal = document.createElement("div");
-  sinalFinal.className = "sinals";
-  sinalFinal.textContent = ")";
-  roleta.appendChild(sinalFinal);
+    if (i === 3) {
+      const sinal = document.createElement("div");
+      sinal.className = "sinals";
+      sinal.textContent = ")";
+      roleta.appendChild(sinal);
+    }
+  }
 
   const box1 = document.createElement("div");
   box1.className = "boxA";
-  box1.style.marginRight = "130px";
-  box1.style.width = "320px";
+  box1.style.marginRight = "440px";
+  box1.style.width = "250px";
   box1.id = "b1";
   roleta.appendChild(box1);
 
   const box2 = document.createElement("div");
   box2.className = "boxB";
-  box2.style.width = "480px";
+  box2.style.marginRight = "200px";
+  box2.style.width = "550px";
   box2.id = "b2";
   roleta.appendChild(box2);
 
   const box3 = document.createElement("div");
   box3.className = "boxC";
-  box3.style.width = "640px";
+  box3.style.width = "820px";
   box3.id = "b3";
   roleta.appendChild(box3);
 
@@ -177,10 +180,8 @@ function expressao6() {
   function processarResultado() {
     const [A, B, C, D] = valoresCentrais.map(v => v === "V");
     const parte1 = A || B;
-    const parte2 = !C;
-    const parte3 = parte1 && parte2;
-    const condicional = !parte3 || D;
-    const resultadoFinal = !condicional;
+    const parte2 = parte1 && !C;
+    const resultadoFinal = !(!parte2 || D);
     const imagemAbutre = document.getElementById("abutre");
     const imagemOriginalSrc = imagemAbutre.src;
     const imagemSorrindoSrc = "./imagens/maldito.png";
@@ -192,13 +193,13 @@ function expressao6() {
     }
 
     if (box2) {
-      box2.style.backgroundColor = parte3 ? "limegreen" : "red";
-      box2.style.boxShadow = parte3 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+      box2.style.backgroundColor = parte2 ? "limegreen" : "red";
+      box2.style.boxShadow = parte2 ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
 
     if (box3) {
-      box3.style.backgroundColor = condicional ? "limegreen" : "red";
-      box3.style.boxShadow = condicional ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
+      box3.style.backgroundColor = resultadoFinal ? "limegreen" : "red";
+      box3.style.boxShadow = resultadoFinal ? "0 0 10px 5px lime" : "0 0 10px 5px hotpink";
     }
 
     if (!resultadoFinal) {
