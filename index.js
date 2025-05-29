@@ -32,7 +32,7 @@ function moedas () {
 
 export { moedas };
 
-const expressoes = [expressao1, expressao2, expressao3, expressao4, expressao5, expressao6, expressao7, expressao8];
+const expressoes = [expressao1, expressao2, expressao3, expressao4, expressao5, expressao6, expressao7, expressao8, expressao9];
 let usadas = [];
 
 function escolherExpressao() {
